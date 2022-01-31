@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+
+    <script>
+        function filter() {
+            location.href = document.getElementByID('search_input').value;
+        }
+    </script>
+</head>
+<body>
+    <h2>Customers list</h2>
+    <button onclick="location.href = '/customers?sort=asc' ">Sort by first name asc</button>
+
+    <br>
+    <p>Sort ascending</p>
+    <input type="checkbox" id="chkbx"></input>
+    <br>
+
+    <button>Sort by first name desc</button>
+
+    <br>
+
+    <input type="text" placeholder="insert last name" id="search_input"></input>
+    <button onclick="location.href = '/customers?filter_last_name=' + document.getElementById('search_input').value + '&sort=' + document.getElementById('chkbx').checked ">search now</button>
+
+    <ul>
+    {% for customer in customers %}
+        <li>
+            <a href="{% url 'customer_details' customer.id %}">Name: {{ customer.first_name }} {{ customer.last_name }} </a>
+            <p>Birth date: {{ customer.birth_date }} </p>
+        </li>
+    {% endfor %}
+    </ul>
+
+
+</body>
+</html>
